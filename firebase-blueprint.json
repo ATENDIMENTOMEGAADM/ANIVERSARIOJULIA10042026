@@ -1,0 +1,88 @@
+{
+  "entities": {
+    "Guest": {
+      "title": "Guest",
+      "description": "A guest invited to the 15th birthday party.",
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Unique username for the guest."
+        },
+        "password": {
+          "type": "string",
+          "description": "Password for the guest."
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the guest."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "guest"],
+          "description": "Role of the user."
+        },
+        "family": {
+          "type": "string",
+          "description": "Family group name for the guest."
+        },
+        "greekProfile": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "description": { "type": "string" }
+          }
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the guest."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number of the guest."
+        },
+        "confirmed": {
+          "type": "boolean",
+          "description": "Whether the guest has confirmed their presence."
+        },
+        "guestsCount": {
+          "type": "number",
+          "description": "Number of additional guests accompanying the main guest."
+        },
+        "message": {
+          "type": "string",
+          "description": "Optional message from the guest."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the RSVP was submitted."
+        }
+      },
+      "required": ["name", "confirmed", "guestsCount"]
+    },
+    "Media": {
+      "title": "Media",
+      "description": "Photos and videos for the gallery.",
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "description": "URL of the media file." },
+        "type": { "type": "string", "enum": ["image", "video"], "description": "Type of media." },
+        "caption": { "type": "string", "description": "Optional caption." },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["url", "type", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/guests/{guestId}": {
+      "schema": "Guest",
+      "description": "Collection of guest RSVPs."
+    },
+    "/media/{mediaId}": {
+      "schema": "Media",
+      "description": "Collection of photos and videos for the gallery."
+    }
+  }
+}
